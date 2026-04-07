@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette — dark cool greys. Built so the white "A" in the logo and
+     the orange brand accent both pop. */
+  --color-paper: #18181b;   /* page background — near-black cool grey */
+  --color-paper-2: #232328; /* cards / raised surfaces, one step up */
+  --color-rule: #34343a;    /* hairline rules — visible but quiet */
+  --color-ink: #f3f3f5;     /* primary text — off-white, not pure */
+  --color-muted: #8c8c94;   /* muted text */
+  --color-accent: #ff5a00;  /* Fugazy orange — pulled from the wordmark */
+
+  /* Type — Inter Tight + JetBrains Mono via next/font. */
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+html, body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Quiet selection — no default blue. */
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Hairline rule we re-use everywhere. */
+.rule {
+  border-color: var(--color-rule);
+}
