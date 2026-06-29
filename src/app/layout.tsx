@@ -55,7 +55,9 @@ export default function RootLayout({
     <html lang="en" className={`${interTight.variable} ${jetbrainsMono.variable}`}>
       <body>
         <Nav />
-        <main>{children}</main>
+        {/* Pull content up under the sticky nav so the hero bg reaches the
+            very top of the page (the hero adds matching top padding back). */}
+        <main className="[margin-top:calc(-1*var(--nav-h))]">{children}</main>
         <Footer />
       </body>
     </html>

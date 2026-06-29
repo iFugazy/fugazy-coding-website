@@ -26,7 +26,7 @@ export function Hero() {
     <section
       id="top"
       className="ed-section ed-hero"
-      style={{ paddingTop: 64, paddingBottom: 80 }}
+      style={{ paddingTop: "calc(var(--nav-h) + 64px)", paddingBottom: 80 }}
     >
       <div className="ed-hero-bg" aria-hidden="true" />
       <div className="ed-hero-scrim" aria-hidden="true" />

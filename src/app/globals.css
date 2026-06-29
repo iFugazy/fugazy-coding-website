@@ -15,6 +15,11 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
+:root {
+  /* Height of the fixed header — content offsets reference this. */
+  --nav-h: 76px;
+}
+
 html, body {
   background: var(--color-paper);
   color: var(--color-ink);
@@ -28,9 +33,9 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Offset anchored sections so they clear the sticky header (~75px tall). */
+/* Offset anchored sections so they clear the fixed header. */
 section[id] {
-  scroll-margin-top: 88px;
+  scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
 /* Quiet selection — no default blue. */
