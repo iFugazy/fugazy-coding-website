@@ -8,7 +8,7 @@ const services = [
     n: "01",
     title: "BIM software development",
     blurb:
-      "We write the plugins, services, and pipelines your design team keeps asking IT for. Most of our work lives inside Revit, but we ship for Navisworks, Rhino + Grasshopper, ArchiCAD, and the browser as well.",
+      "We write the plugins, services, and pipelines your design team keeps asking IT for. Whether the model lives in Revit, Navisworks, Rhino + Grasshopper, ArchiCAD, or the browser — we ship where the work happens.",
     bullets: [
       "Revit add-ins (C# / .NET, WPF panels, Revit API 2022–2026)",
       "Forge / APS services and viewers",
@@ -55,20 +55,16 @@ export default function ServicesPage() {
     <>
       {/* HERO */}
       <section className="border-b border-[var(--color-rule)]">
-        <Container className="py-24 md:py-40">
-          <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-            Services
+        <Container className="py-20 md:py-28">
+          <div className="max-w-3xl">
+            <h1 className="font-sans text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-6xl">
+              Software, modeling, and applied AI.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-muted)] md:text-xl">
+              Three practices, one studio — each drawing on the others when a
+              project needs it.
+            </p>
           </div>
-          <h1 className="mt-10 max-w-[16ch] font-sans text-[44px] font-medium leading-[0.95] tracking-[-0.03em] md:text-[80px] lg:text-[96px]">
-            Three practices.
-            <br />
-            <span className="text-[var(--color-accent)]">One team.</span>
-          </h1>
-          <p className="mt-12 max-w-xl text-lg leading-relaxed text-[var(--color-muted)]">
-            Software, modeling, and applied AI — built and shared inside one
-            studio so each practice draws on the others when a project needs
-            it.
-          </p>
         </Container>
       </section>
 
@@ -79,68 +75,37 @@ export default function ServicesPage() {
             <article
               key={s.id}
               id={s.id}
-              className="border-b border-[var(--color-rule)] py-20 md:py-32"
+              className="border-b border-[var(--color-rule)] py-16 md:py-20"
             >
-              <div className="grid gap-10 md:grid-cols-12">
-                <div className="md:col-span-2">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                    {s.n}
-                  </div>
-                </div>
-                <div className="md:col-span-10">
-                  <h2 className="font-sans text-4xl font-medium leading-[1.02] tracking-[-0.02em] md:text-7xl">
-                    {s.title}
-                  </h2>
-                </div>
+              <div className="font-mono text-[12px] text-[var(--color-accent)]">
+                {s.n}
               </div>
+              <h2 className="mt-3 font-sans text-2xl font-medium tracking-[-0.02em] md:text-3xl">
+                {s.title}
+              </h2>
 
-              <div className="mt-16 grid gap-12 md:grid-cols-12">
-                <div className="md:col-span-2 md:col-start-3">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                    Overview
-                  </div>
+              <div className="mt-8 grid gap-10 md:grid-cols-12 md:gap-12">
+                <div className="md:col-span-7">
+                  <p className="text-lg leading-relaxed text-[var(--color-muted)]">
+                    {s.blurb}
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {s.bullets.map((b) => (
+                      <li key={b} className="flex gap-3 text-[15px] leading-relaxed">
+                        <span className="mt-px text-[var(--color-muted)]">—</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="text-lg leading-relaxed text-[var(--color-muted)] md:col-span-7">
-                  {s.blurb}
-                </p>
-              </div>
 
-              <div className="mt-16 grid gap-12 md:grid-cols-12">
-                <div className="md:col-span-2 md:col-start-3">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-                    What we ship
-                  </div>
-                </div>
-                <ul className="md:col-span-7">
-                  {s.bullets.map((b, i) => (
-                    <li
-                      key={b}
-                      className="flex gap-6 border-b border-[var(--color-rule)] py-5 text-[15px] md:text-base"
-                    >
-                      <span className="font-mono text-[11px] text-[var(--color-muted)]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-16 grid gap-12 md:grid-cols-12">
-                <div className="md:col-span-2 md:col-start-3">
-                  <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
+                <div className="md:col-span-4 md:col-start-9">
+                  <div className="text-[12px] font-medium uppercase tracking-[0.14em] text-[var(--color-muted)]">
                     Stack
                   </div>
-                </div>
-                <div className="md:col-span-7 flex flex-wrap gap-x-5 gap-y-2">
-                  {s.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-muted)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  <p className="mt-3 text-[14px] leading-relaxed text-[var(--color-muted)]">
+                    {s.tags.join("  ·  ")}
+                  </p>
                 </div>
               </div>
             </article>
