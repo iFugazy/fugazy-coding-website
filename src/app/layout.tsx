@@ -25,8 +25,13 @@ export const metadata: Metadata = {
     "Fugazy Coding builds plugins, tooling, and AI workflows for the BIM industry. Revit add-ins, IFC pipelines, Three.js viewers, and high-LOD 3D modeling.",
   metadataBase: new URL("https://fugazycoding.com"),
   icons: {
-    icon: "/logo.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: "/apple-icon.png",
   },
+  manifest: "/site.webmanifest",
   openGraph: {
     title: "Fugazy Coding",
     description:
