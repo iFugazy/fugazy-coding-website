@@ -20,7 +20,7 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-muted)]">
             <Link href="/contact" className="hover:text-[var(--color-ink)]">
-              hello@fugazycoding.com
+              darren@fugazycoding.com
             </Link>
             <span>© {new Date().getFullYear()} Fugazy Coding</span>
           </div>

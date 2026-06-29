@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/Container";
+import { ContactForm } from "@/components/ContactForm";
 
 export const metadata = { title: "Contact" };
 
@@ -31,10 +32,10 @@ export default function ContactPage() {
                   Email
                 </div>
                 <a
-                  href="mailto:hello@fugazycoding.com"
+                  href="mailto:darren@fugazycoding.com"
                   className="mt-4 block font-sans text-2xl leading-[1.1] tracking-[-0.01em] underline underline-offset-4 hover:text-[var(--color-accent)] md:text-3xl"
                 >
-                  hello@fugazycoding.com
+                  darren@fugazycoding.com
                 </a>
               </div>
               <div>
@@ -51,57 +52,11 @@ export default function ContactPage() {
 
             {/* RIGHT — form */}
             <div className="md:col-span-7 md:col-start-6">
-              <form
-                action="mailto:hello@fugazycoding.com"
-                method="post"
-                encType="text/plain"
-                className="space-y-12"
-              >
-                <Field label="01 / Your name" name="name" />
-                <Field label="02 / Email" name="email" type="email" />
-                <Field label="03 / Company" name="company" />
-                <Field label="04 / Project" name="project" textarea />
-
-                <div className="pt-4">
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-3 bg-[var(--color-ink)] px-6 py-4 font-mono text-[12px] uppercase tracking-[0.14em] text-[var(--color-paper)] hover:bg-[var(--color-accent)]"
-                  >
-                    Send <span aria-hidden>→</span>
-                  </button>
-                </div>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </Container>
       </section>
     </>
-  );
-}
-
-function Field({
-  label,
-  name,
-  type = "text",
-  textarea = false,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  textarea?: boolean;
-}) {
-  const inputCls =
-    "mt-4 w-full border-b border-[var(--color-rule)] bg-transparent py-4 text-2xl tracking-[-0.01em] outline-none focus:border-[var(--color-ink)] md:text-3xl";
-  return (
-    <label className="block">
-      <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
-        {label}
-      </span>
-      {textarea ? (
-        <textarea name={name} rows={4} className={`${inputCls} resize-none`} />
-      ) : (
-        <input type={type} name={name} className={inputCls} />
-      )}
-    </label>
   );
 }
