@@ -4,6 +4,10 @@ import { useState } from "react";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+// Public Web3Forms access key — safe to expose in the client. It only routes
+// submissions to the email tied to the key; it cannot read or send anything.
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -17,15 +21,23 @@ export function ContactForm() {
     const data = Object.fromEntries(new FormData(form));
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `New project inquiry — ${data.name || "website"}`,
+          from_name: "Fugazy Coding website",
+          ...data,
+        }),
       });
 
-      if (!res.ok) {
-        const body = await res.json().catch(() => null);
-        throw new Error(body?.error ?? "Could not send your message.");
+      const body = await res.json().catch(() => null);
+      if (!res.ok || !body?.success) {
+        throw new Error(body?.message ?? "Could not send your message.");
       }
 
       form.reset();
@@ -58,13 +70,15 @@ export function ContactForm() {
       <Field label="03 / Company" name="company" />
       <Field label="04 / Project" name="project" textarea required />
 
-      {/* Honeypot — hidden from real users, catches bots. */}
-      <div aria-hidden className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label>
-          Website
-          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-        </label>
-      </div>
+      {/* Honeypot — Web3Forms drops any submission where this is filled. */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+        aria-hidden
+      />
 
       <div className="flex flex-wrap items-center gap-6 pt-4">
         <button
