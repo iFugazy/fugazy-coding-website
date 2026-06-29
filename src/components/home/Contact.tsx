@@ -3,9 +3,47 @@
 import { useState } from "react";
 import { contact, services } from "./data";
 
+// Public Web3Forms access key — safe in the client; it only routes mail to
+// darren@fugazycoding.com. Inlined into the static build via NEXT_PUBLIC_.
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
 export function Contact() {
   const [intent, setIntent] = useState<"call" | "quote">("call");
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setSubmitting(true);
+    setError(null);
+
+    const fd = new FormData(e.currentTarget);
+    fd.append("access_key", ACCESS_KEY ?? "");
+    fd.append("from_name", "Fugazy Coding website");
+    fd.append(
+      "subject",
+      `New ${intent === "quote" ? "quote request" : "call request"} — ${
+        fd.get("name") || "website"
+      }`,
+    );
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: fd,
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.message ?? "Could not send your message.");
+      }
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   const details: [string, string][] = [
     ["Email", contact.email],
@@ -92,13 +130,17 @@ export function Contact() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSent(true);
-                }}
-                style={{ display: "grid", gap: 24 }}
-              >
+              <form onSubmit={handleSubmit} style={{ display: "grid", gap: 24 }}>
+                <input type="hidden" name="intent" value={intent} />
+                {/* Honeypot — Web3Forms drops submissions where this is set. */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ position: "absolute", left: "-9999px" }}
+                  aria-hidden
+                />
                 <div style={{ display: "flex", gap: 28 }}>
                   {(["call", "quote"] as const).map((v) => (
                     <button
@@ -126,15 +168,20 @@ export function Contact() {
                 </div>
                 <div className="ed-field">
                   <label>Name</label>
-                  <input required placeholder="Jane Architect" />
+                  <input name="name" required placeholder="Jane Architect" />
                 </div>
                 <div className="ed-field">
                   <label>Work email</label>
-                  <input required type="email" placeholder="jane@firm.com" />
+                  <input
+                    name="email"
+                    required
+                    type="email"
+                    placeholder="jane@firm.com"
+                  />
                 </div>
                 <div className="ed-field">
                   <label>Service</label>
-                  <select defaultValue="">
+                  <select name="service" defaultValue="">
                     <option value="" disabled>
                       Choose one…
                     </option>
@@ -149,15 +196,31 @@ export function Contact() {
                       ? "Project scope"
                       : "What would you like to discuss?"}
                   </label>
-                  <textarea rows={3} placeholder="A few lines…" />
+                  <textarea name="message" rows={3} placeholder="A few lines…" />
                 </div>
                 <button
                   type="submit"
+                  disabled={submitting}
                   className="ed-cta-primary"
-                  style={{ justifyContent: "center" }}
+                  style={{
+                    justifyContent: "center",
+                    opacity: submitting ? 0.5 : 1,
+                    cursor: submitting ? "not-allowed" : "pointer",
+                  }}
                 >
-                  {intent === "quote" ? "Request a quote" : "Book a call"} →
+                  {submitting
+                    ? "Sending…"
+                    : `${intent === "quote" ? "Request a quote" : "Book a call"} →`}
                 </button>
+                {error && (
+                  <p
+                    role="alert"
+                    className="ed-mono-label"
+                    style={{ color: "var(--color-accent)" }}
+                  >
+                    {error}
+                  </p>
+                )}
               </form>
             )}
           </div>

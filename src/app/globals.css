@@ -23,6 +23,16 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
+/* One-page site — nav anchors glide instead of jumping. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset anchored sections so they clear the sticky header (~75px tall). */
+section[id] {
+  scroll-margin-top: 88px;
+}
+
 /* Quiet selection — no default blue. */
 ::selection {
   background: var(--color-ink);

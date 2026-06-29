@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Container } from "./ui/Container";
 
@@ -19,9 +18,12 @@ export function Footer() {
             </div>
           </div>
           <div className="flex flex-col gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--color-muted)]">
-            <Link href="/contact" className="hover:text-[var(--color-ink)]">
+            <a
+              href="mailto:darren@fugazycoding.com"
+              className="hover:text-[var(--color-ink)]"
+            >
               darren@fugazycoding.com
-            </Link>
+            </a>
             <span>© {new Date().getFullYear()} Fugazy Coding</span>
           </div>
         </div>
