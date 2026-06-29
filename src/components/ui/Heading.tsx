@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { createElement, ElementType, ReactNode } from "react";
 
 type Level = 1 | 2 | 3;
 
@@ -17,10 +17,10 @@ export function Heading({
   children: ReactNode;
   className?: string;
 }) {
-  const Tag = (`h${level}` as unknown) as keyof JSX.IntrinsicElements;
-  return (
-    <Tag className={`font-sans font-medium ${sizes[level]} ${className}`}>
-      {children}
-    </Tag>
+  const Tag = `h${level}` as ElementType;
+  return createElement(
+    Tag,
+    { className: `font-sans font-medium ${sizes[level]} ${className}` },
+    children
   );
 }

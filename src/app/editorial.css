@@ -1,0 +1,417 @@
+/* Editorial homepage styles — ported from the Claude Design "Modern business
+   website" project (index.html). Tokens (--color-*, --font-*) come from
+   globals.css @theme, so this file only owns layout + component chrome.
+   Page reset, html/body background, and the brand nav/footer live elsewhere
+   (globals.css + the site's <Nav>/<Footer>). */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.ed-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 36px;
+}
+@media (max-width: 720px) {
+  .ed-wrap {
+    padding: 0 20px;
+  }
+}
+
+.ed-mono-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* section header */
+.ed-shead {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding-top: 26px;
+  border-top: 1px solid var(--color-ink);
+  align-items: end;
+}
+.ed-shead .num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-accent);
+  letter-spacing: 0.1em;
+}
+.ed-shead h2 {
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 14px 0 0;
+  font-weight: 600;
+}
+.ed-shead .desc {
+  color: var(--color-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 42ch;
+}
+@media (max-width: 720px) {
+  .ed-shead {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.ed-section {
+  padding: 90px 0;
+}
+
+/* display headline */
+.ed-hero {
+  position: relative;
+  overflow: hidden;
+}
+.ed-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: url("/hero-halftone-v2.png") no-repeat center right;
+  background-size: cover;
+  opacity: 0.9;
+}
+/* keep the left (text) side legible and fade edges into the page */
+.ed-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      var(--color-paper) 12%,
+      color-mix(in srgb, var(--color-paper) 55%, transparent) 48%,
+      transparent 78%
+    ),
+    linear-gradient(0deg, var(--color-paper) 2%, transparent 26%);
+}
+.ed-hero h1 {
+  font-size: clamp(48px, 10.5vw, 168px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  margin: 0;
+  text-wrap: balance;
+}
+.ed-hero .accent {
+  color: var(--color-accent);
+}
+@media (max-width: 720px) {
+  .ed-hero-bg {
+    opacity: 0.5;
+  }
+  .ed-hero-scrim {
+    background: linear-gradient(
+      0deg,
+      var(--color-paper) 4%,
+      color-mix(in srgb, var(--color-paper) 60%, transparent) 60%,
+      color-mix(in srgb, var(--color-paper) 35%, transparent)
+    );
+  }
+}
+
+.ed-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-rule);
+  padding-bottom: 6px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.ed-link:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.ed-link .ar {
+  transition: transform 0.15s;
+}
+.ed-link:hover .ar {
+  transform: translateX(4px);
+}
+
+.ed-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-accent);
+  color: #0b0b0d;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 15px 22px;
+  transition: filter 0.15s;
+  white-space: nowrap;
+}
+.ed-cta-primary:hover {
+  filter: brightness(1.08);
+}
+
+/* service rows */
+.ed-srow {
+  display: grid;
+  grid-template-columns: 64px 1.1fr 1.5fr auto;
+  gap: 28px;
+  align-items: start;
+  padding: 34px 0;
+  border-bottom: 1px solid var(--color-rule);
+  transition: padding-left 0.2s;
+}
+.ed-srow:hover {
+  padding-left: 12px;
+}
+.ed-srow .snum {
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  font-size: 14px;
+}
+.ed-srow h3 {
+  font-size: clamp(22px, 2.4vw, 30px);
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.05;
+}
+.ed-srow p {
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.ed-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.ed-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  border: 1px solid var(--color-rule);
+  padding: 4px 8px;
+}
+.ed-srow .plus {
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  font-size: 20px;
+}
+.ed-srow:hover .plus {
+  color: var(--color-accent);
+}
+@media (max-width: 860px) {
+  .ed-srow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .ed-srow .plus {
+    display: none;
+  }
+}
+
+/* work list */
+.ed-wrow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--color-rule);
+  cursor: default;
+}
+.ed-wrow:first-child {
+  border-top: 1px solid var(--color-rule);
+}
+.ed-wrow h3 {
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: -0.025em;
+  margin: 8px 0 0;
+  font-weight: 600;
+  transition: color 0.15s;
+}
+.ed-wrow:hover h3 {
+  color: var(--color-accent);
+}
+.ed-wrow .metric {
+  text-align: right;
+}
+.ed-wrow .metric b {
+  font-size: clamp(28px, 3.6vw, 48px);
+  color: var(--color-accent);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.ed-wrow .metric span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+}
+@media (max-width: 720px) {
+  .ed-wrow {
+    grid-template-columns: 1fr;
+  }
+  .ed-wrow .metric {
+    text-align: left;
+  }
+}
+
+/* faq */
+.ed-faq {
+  border-bottom: 1px solid var(--color-rule);
+}
+.ed-faq:first-child {
+  border-top: 1px solid var(--color-rule);
+}
+.ed-faq button {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink);
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding: 26px 0;
+  font-family: var(--font-sans);
+  font-size: clamp(17px, 1.7vw, 21px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.ed-faq .pl {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 22px;
+  transition: transform 0.2s;
+}
+.ed-faq.open .pl {
+  transform: rotate(45deg);
+}
+.ed-faq .ans {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: var(--color-muted);
+  line-height: 1.65;
+}
+.ed-faq.open .ans {
+  max-height: 260px;
+}
+.ed-faq .ans-in {
+  padding-bottom: 26px;
+  max-width: 62ch;
+}
+
+/* form */
+.ed-field label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.ed-field input,
+.ed-field textarea,
+.ed-field select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-ink);
+  padding: 12px 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  transition: border-color 0.15s;
+}
+.ed-field input:focus,
+.ed-field textarea:focus,
+.ed-field select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+.ed-field input::placeholder,
+.ed-field textarea::placeholder {
+  color: color-mix(in srgb, var(--color-muted) 65%, transparent);
+}
+.ed-field select option {
+  background: var(--color-paper);
+}
+
+/* trusted-by inline logos: centered row, knocked out to white on the dark page */
+.logo-strip {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+}
+.logo-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-chip img {
+  filter: brightness(0) invert(1);
+  opacity: 0.68;
+  transition: opacity 0.2s ease;
+}
+.logo-chip:hover img {
+  opacity: 1;
+}
+@media (max-width: 720px) {
+  .logo-strip {
+    gap: 36px;
+  }
+}
+
+@media (max-width: 860px) {
+  .ed-about,
+  .ed-contact {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+/* entrance: animate TRANSFORM ONLY so content can never be left invisible
+   even if the animation timeline stalls (resting opacity is always 1) */
+.reveal {
+  opacity: 1;
+}
+.reveal.anim {
+  animation: edrise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes edrise {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal.anim {
+    animation: none;
+  }
+}
