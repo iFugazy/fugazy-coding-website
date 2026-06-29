@@ -1,0 +1,32 @@
+{
+  "projectId": "6fb8abf9-dd9a-4285-bc13-f32652d61dbd",
+  "pkg": "fugazy-coding-site",
+  "globalName": "FugazyDS",
+  "shape": "package",
+  "srcDir": "src/components/ui",
+  "tsconfig": ".design-sync/tsconfig.build.json",
+  "cssEntry": ".design-sync/compiled-styles.css",
+  "componentSrcMap": {
+    "Button": "src/components/ui/Button.tsx",
+    "Card": "src/components/ui/Card.tsx",
+    "Container": "src/components/ui/Container.tsx",
+    "Section": "src/components/ui/Section.tsx",
+    "Heading": "src/components/ui/Heading.tsx",
+    "Eyebrow": "src/components/ui/Eyebrow.tsx",
+    "Tag": "src/components/ui/Tag.tsx"
+  },
+  "dtsPropsFor": {
+    "Button": "/** Link target (rendered as an anchor). */\n  href: string;\n  children: React.ReactNode;\n  /** Visual style. @default \"primary\" */\n  variant?: \"primary\" | \"ghost\";",
+    "Card": "children: React.ReactNode;\n  className?: string;",
+    "Container": "children: React.ReactNode;\n  className?: string;",
+    "Section": "children: React.ReactNode;\n  className?: string;\n  /** Render children full-bleed instead of inside a Container. @default false */\n  bleed?: boolean;\n  id?: string;",
+    "Heading": "/** Heading level → element + type scale. @default 2 */\n  level?: 1 | 2 | 3;\n  children: React.ReactNode;\n  className?: string;",
+    "Eyebrow": "children: React.ReactNode;",
+    "Tag": "children: React.ReactNode;"
+  },
+  "overrides": {
+    "Container": { "cardMode": "column" },
+    "Section": { "cardMode": "column" }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
